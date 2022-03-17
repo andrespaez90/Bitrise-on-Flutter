@@ -3,9 +3,16 @@ import 'package:flutter/material.dart';
 import '../../res/colors/main_colors.dart';
 
 class WidgetButton extends StatelessWidget {
-  const WidgetButton.primary({Key? key, this.text}) : super(key: key);
+  const WidgetButton.primary({
+    Key? key,
+    this.text,
+    this.enable = false,
+    required this.onPressed,
+  }) : super(key: key);
 
   final String? text;
+  final bool enable;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +25,7 @@ class WidgetButton extends StatelessWidget {
               end: Alignment.bottomCenter,
               colors: <Color>[MainColors.primary, MainColors.primaryDark])),
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: enable ? onPressed : null,
         style: ElevatedButton.styleFrom(
             primary: Colors.transparent, shadowColor: Colors.transparent),
         child: Text(text ?? ''),

@@ -7,6 +7,7 @@ class InputTextField extends TextFormField {
   InputTextField({
     Key? key,
     String? labelText,
+    ValueChanged<String>? onChange,
   }) : super(
           key: key,
           decoration: InputDecoration(
@@ -20,5 +21,6 @@ class InputTextField extends TextFormField {
             ),
             labelText: labelText,
           ),
+          onChanged: onChange,
         );
 }

@@ -17,9 +17,14 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$LoginStateTearOff {
   const _$LoginStateTearOff();
 
-  _LoginState call({String token = ''}) {
+  _LoginState call(
+      {bool isLaoding = false,
+      String token = '',
+      bool userAuthorized = false}) {
     return _LoginState(
+      isLaoding: isLaoding,
       token: token,
+      userAuthorized: userAuthorized,
     );
   }
 }
@@ -29,7 +34,9 @@ const $LoginState = _$LoginStateTearOff();
 
 /// @nodoc
 mixin _$LoginState {
+  bool get isLaoding => throw _privateConstructorUsedError;
   String get token => throw _privateConstructorUsedError;
+  bool get userAuthorized => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $LoginStateCopyWith<LoginState> get copyWith =>
@@ -41,7 +48,7 @@ abstract class $LoginStateCopyWith<$Res> {
   factory $LoginStateCopyWith(
           LoginState value, $Res Function(LoginState) then) =
       _$LoginStateCopyWithImpl<$Res>;
-  $Res call({String token});
+  $Res call({bool isLaoding, String token, bool userAuthorized});
 }
 
 /// @nodoc
@@ -54,13 +61,23 @@ class _$LoginStateCopyWithImpl<$Res> implements $LoginStateCopyWith<$Res> {
 
   @override
   $Res call({
+    Object? isLaoding = freezed,
     Object? token = freezed,
+    Object? userAuthorized = freezed,
   }) {
     return _then(_value.copyWith(
+      isLaoding: isLaoding == freezed
+          ? _value.isLaoding
+          : isLaoding // ignore: cast_nullable_to_non_nullable
+              as bool,
       token: token == freezed
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
               as String,
+      userAuthorized: userAuthorized == freezed
+          ? _value.userAuthorized
+          : userAuthorized // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -71,7 +88,7 @@ abstract class _$LoginStateCopyWith<$Res> implements $LoginStateCopyWith<$Res> {
           _LoginState value, $Res Function(_LoginState) then) =
       __$LoginStateCopyWithImpl<$Res>;
   @override
-  $Res call({String token});
+  $Res call({bool isLaoding, String token, bool userAuthorized});
 }
 
 /// @nodoc
@@ -86,13 +103,23 @@ class __$LoginStateCopyWithImpl<$Res> extends _$LoginStateCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? isLaoding = freezed,
     Object? token = freezed,
+    Object? userAuthorized = freezed,
   }) {
     return _then(_LoginState(
+      isLaoding: isLaoding == freezed
+          ? _value.isLaoding
+          : isLaoding // ignore: cast_nullable_to_non_nullable
+              as bool,
       token: token == freezed
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
               as String,
+      userAuthorized: userAuthorized == freezed
+          ? _value.userAuthorized
+          : userAuthorized // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -100,28 +127,44 @@ class __$LoginStateCopyWithImpl<$Res> extends _$LoginStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_LoginState implements _LoginState {
-  _$_LoginState({this.token = ''});
+  _$_LoginState(
+      {this.isLaoding = false, this.token = '', this.userAuthorized = false});
 
+  @JsonKey(defaultValue: false)
+  @override
+  final bool isLaoding;
   @JsonKey(defaultValue: '')
   @override
   final String token;
+  @JsonKey(defaultValue: false)
+  @override
+  final bool userAuthorized;
 
   @override
   String toString() {
-    return 'LoginState(token: $token)';
+    return 'LoginState(isLaoding: $isLaoding, token: $token, userAuthorized: $userAuthorized)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _LoginState &&
+            (identical(other.isLaoding, isLaoding) ||
+                const DeepCollectionEquality()
+                    .equals(other.isLaoding, isLaoding)) &&
             (identical(other.token, token) ||
-                const DeepCollectionEquality().equals(other.token, token)));
+                const DeepCollectionEquality().equals(other.token, token)) &&
+            (identical(other.userAuthorized, userAuthorized) ||
+                const DeepCollectionEquality()
+                    .equals(other.userAuthorized, userAuthorized)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(token);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(isLaoding) ^
+      const DeepCollectionEquality().hash(token) ^
+      const DeepCollectionEquality().hash(userAuthorized);
 
   @JsonKey(ignore: true)
   @override
@@ -130,10 +173,15 @@ class _$_LoginState implements _LoginState {
 }
 
 abstract class _LoginState implements LoginState {
-  factory _LoginState({String token}) = _$_LoginState;
+  factory _LoginState({bool isLaoding, String token, bool userAuthorized}) =
+      _$_LoginState;
 
   @override
+  bool get isLaoding => throw _privateConstructorUsedError;
+  @override
   String get token => throw _privateConstructorUsedError;
+  @override
+  bool get userAuthorized => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$LoginStateCopyWith<_LoginState> get copyWith =>

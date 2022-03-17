@@ -6,7 +6,7 @@ class LocalStorageManager {
       aOptions: AndroidOptions(encryptedSharedPreferences: true));
 
   @nonVirtual
-  Future<void> deleteAll() {
+  Future<void> _deleteAll() {
     return _storage.deleteAll();
   }
 
