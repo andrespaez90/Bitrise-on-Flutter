@@ -3,9 +3,7 @@ Unofficial Bitrise app where you can start build and check its status
 
 ### Build the project
 
-This project uses auto-generated code using build_runner package. 
-
-To build please run: 
+This project uses auto-generated code using build_runner package, to build please run: 
 ```
 flutter pub run build_runner build
 ```
