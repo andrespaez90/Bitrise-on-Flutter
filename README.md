@@ -1,6 +1,5 @@
-# flutter_bitrise
-
-A new Flutter application.
+# Bitrise App
+Unofficial Bitrise app where you can start build and check its status
 
 ## Getting Started
 
