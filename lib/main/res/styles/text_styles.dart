@@ -17,4 +17,11 @@ mixin TextStyles {
     fontSize: 10,
     color: FontColors.purple,
   );
+
+  static TextStyle caption1 = const TextStyle(fontSize: 12);
+  static TextStyle caption1Gray = small.copyWith(color: FontColors.grayDrak);
+
+  static TextStyle subTitle = const TextStyle(fontSize: 16);
+  static TextStyle subTitleBold =
+      subTitle.copyWith(fontWeight: FontWeight.bold);
 }

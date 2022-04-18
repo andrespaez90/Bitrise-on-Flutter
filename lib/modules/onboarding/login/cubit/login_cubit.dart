@@ -1,9 +1,8 @@
-import 'dart:async';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:rxdart/rxdart.dart';
 
-import '../use_cases/login_use_case.dart';
+import '../../../../use_cases/login/login_use_case.dart';
 
 part 'login_cubit.freezed.dart';
 part 'login_state.dart';
@@ -13,8 +12,7 @@ class LoginCubit extends Cubit<LoginState> {
     doLogin();
   }
 
-  final List<StreamSubscription<dynamic>> _subscriptions =
-      <StreamSubscription<dynamic>>[];
+  final CompositeSubscription _subscriptions = CompositeSubscription();
 
   final LoginUseCase _loginUseCase;
 
@@ -31,7 +29,7 @@ class LoginCubit extends Cubit<LoginState> {
   }
 
   void _onUserAthorized(bool authorized) {
-    emit(state.copyWith(userAuthorized: true, isLaoding: false));
+    emit(state.copyWith(userAuthorized: authorized, isLaoding: false));
   }
 
   void _onLoginError() {

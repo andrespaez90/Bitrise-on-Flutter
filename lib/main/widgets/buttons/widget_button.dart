@@ -3,16 +3,20 @@ import 'package:flutter/material.dart';
 import '../../res/colors/main_colors.dart';
 
 class WidgetButton extends StatelessWidget {
-  const WidgetButton.primary({
+  WidgetButton.primary({
     Key? key,
-    this.text,
-    this.enable = false,
+    required this.text,
     required this.onPressed,
-  }) : super(key: key);
+    this.icon,
+    this.enable = true,
+  })  : _colors = <Color>[MainColors.primary, MainColors.primaryDark],
+        super(key: key);
 
   final String? text;
   final bool enable;
   final VoidCallback onPressed;
+  final List<Color> _colors;
+  final Icon? icon;
 
   @override
   Widget build(BuildContext context) {
@@ -21,15 +25,27 @@ class WidgetButton extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(
           gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: <Color>[MainColors.primary, MainColors.primaryDark])),
-      child: ElevatedButton(
-        onPressed: enable ? onPressed : null,
-        style: ElevatedButton.styleFrom(
-            primary: Colors.transparent, shadowColor: Colors.transparent),
-        child: Text(text ?? ''),
-      ),
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+        colors: _colors,
+      )),
+      child: icon == null
+          ? ElevatedButton(
+              onPressed: enable ? onPressed : null,
+              style: ElevatedButton.styleFrom(
+                  primary: Colors.transparent, shadowColor: Colors.transparent),
+              child: Text(
+                text ?? '',
+              ),
+            )
+          : ElevatedButton.icon(
+              onPressed: enable ? onPressed : null,
+              style: ElevatedButton.styleFrom(
+                  primary: Colors.transparent, shadowColor: Colors.transparent),
+              icon: icon!,
+              label: Text(
+                text ?? '',
+              )),
     );
   }
 }

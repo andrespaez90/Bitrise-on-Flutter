@@ -1,10 +1,9 @@
-import '../../../../network/api/login_api.dart';
-import '../../../../network/models/profile_dto.dart';
-import '../../../../repositories/base_repository.dart';
-import '../../../../repositories/models/user_model.dart';
-import '../../../../repositories/user_repository.dart';
-import '../../../mappers/user_model_mapper.dart';
-import '../storage/auth_storage_manager.dart';
+import '../../modules/onboarding/login/storage/auth_storage_manager.dart';
+import '../../network/api/login_api.dart';
+import '../../network/models/profile_dto.dart';
+import '../../repositories/base_repository.dart';
+import '../../repositories/models/user_model.dart';
+import 'mappers/user_model_mapper.dart';
 
 class LoginUseCase {
   LoginUseCase(

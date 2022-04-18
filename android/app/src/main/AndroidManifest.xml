@@ -3,6 +3,8 @@
   package="com.bitrise.app"
 >
 
+<uses-permission android:name="android.permission.INTERNET"/>
+
     <queries>
       <!-- If your app opens https URLs -->
       <intent>
@@ -15,7 +17,7 @@
         <data android:mimeType="*/*" />
       </intent>
    </queries>
-
+   
    <application
     android:label="flutter_bitrise"
     android:name="${applicationName}"

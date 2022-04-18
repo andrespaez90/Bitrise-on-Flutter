@@ -10,7 +10,7 @@ abstract class AuthStorageManager {
   Future<String?> getToken();
 }
 
-class AuthStorageManagerImpl extends AuthStorageManager {
+class AuthStorageManagerImpl implements AuthStorageManager {
   AuthStorageManagerImpl(this._storageManager);
 
   final String _KEY_USER_TOKEN = 'auth_storage_user_token';

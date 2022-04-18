@@ -3,8 +3,9 @@ import 'package:flutter/foundation.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 class HttpDioManager {
-  HttpDioManager()
-      : dio = Dio(
+  HttpDioManager({
+    List<InterceptorsWrapper>? interceptors,
+  }) : dio = Dio(
           BaseOptions(
             baseUrl: 'https://api.bitrise.io/',
             contentType: 'application/json; charset=UTF-8',
@@ -12,6 +13,10 @@ class HttpDioManager {
             sendTimeout: 10000,
           ),
         ) {
+    interceptors?.forEach((InterceptorsWrapper interceptor) {
+      dio.interceptors.add(interceptor);
+    });
+
     if (kDebugMode) {
       dio.interceptors.add(PrettyDioLogger(
         requestHeader: true,
