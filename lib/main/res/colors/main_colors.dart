@@ -8,4 +8,8 @@ mixin MainColors {
   static Color seconday = const Color.fromARGB(255, 13, 211, 197);
 
   static Color background = const Color.fromARGB(255, 246, 249, 252);
+
+  static Color green_success = const Color.fromARGB(255, 15, 195, 137);
+
+  static Color red_error = const Color.fromARGB(255, 255, 33, 88);
 }

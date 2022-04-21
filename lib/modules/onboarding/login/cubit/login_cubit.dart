@@ -1,19 +1,18 @@
-import 'dart:async';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:rxdart/rxdart.dart';
 
-import '../../../../network/models/profile_dto.dart';
-import '../use_cases/login_use_case.dart';
+import '../../../../use_cases/login/login_use_case.dart';
 
 part 'login_cubit.freezed.dart';
 part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
-  LoginCubit(this._loginUseCase) : super(LoginState());
+  LoginCubit(this._loginUseCase) : super(LoginState()) {
+    doLogin();
+  }
 
-  final List<StreamSubscription<dynamic>> _subscriptions =
-      <StreamSubscription<dynamic>>[];
+  final CompositeSubscription _subscriptions = CompositeSubscription();
 
   final LoginUseCase _loginUseCase;
 
@@ -23,14 +22,14 @@ class LoginCubit extends Cubit<LoginState> {
 
   void doLogin() {
     emit(state.copyWith(isLaoding: true));
-    _subscriptions.add(_loginUseCase.doLogin(state.token).listen(
-          (ProfileDto prodile) => _onUserAthorized(),
+    _subscriptions.add(_loginUseCase.invoke(newToken: state.token).listen(
+          (bool authorized) => _onUserAthorized(authorized),
           onError: (Object error) => _onLoginError(),
         ));
   }
 
-  void _onUserAthorized() {
-    emit(state.copyWith(userAuthorized: true, isLaoding: false));
+  void _onUserAthorized(bool authorized) {
+    emit(state.copyWith(userAuthorized: authorized, isLaoding: false));
   }
 
   void _onLoginError() {

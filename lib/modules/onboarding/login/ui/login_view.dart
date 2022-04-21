@@ -8,6 +8,7 @@ import '../../../../main/res/icons/app_icons.dart';
 import '../../../../main/res/styles/text_styles.dart';
 import '../../../../main/widgets/buttons/widget_button.dart';
 import '../../../../main/widgets/inputText/input_text_field.dart';
+import '../../../../main/widgets/loader/loader_widget.dart';
 import '../../../home/ui/home_page.dart';
 import '../cubit/login_cubit.dart';
 
@@ -26,44 +27,48 @@ class LoginView extends StatelessWidget {
       child: Scaffold(
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 16),
-          child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                SvgPicture.asset(
-                  AppIcons.ic_profile,
-                  height: 120,
-                  width: double.infinity,
-                  fit: BoxFit.fitWidth,
-                ),
-                InputTextField(
-                  labelText: 'Ingresa tu personal access token',
-                  onChange: cubit.onChangeToken,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  child: BlocBuilder<LoginCubit, LoginState>(
-                      builder: (BuildContext context, LoginState state) {
-                    return WidgetButton.primary(
-                      enable: !state.isLaoding,
-                      text: 'Ingresar',
-                      onPressed: () => cubit.doLogin(),
-                    );
-                  }),
-                ),
-                RichText(
-                    text: TextSpan(children: <TextSpan>[
-                  TextSpan(
-                    text: 'No tienes token? obtenlo',
-                    style: TextStyles.smallGray,
-                  ),
-                  TextSpan(
-                    text: ' Aqui!',
-                    style: TextStyles.smallLink,
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = () => openWebView(),
-                  )
-                ])),
-              ]),
+          child: BlocBuilder<LoginCubit, LoginState>(
+              buildWhen: (LoginState previous, LoginState current) =>
+                  previous.isLaoding != current.isLaoding,
+              builder: (BuildContext context, LoginState state) {
+                return LoaderWidget(
+                    isLoader: state.isLaoding,
+                    body: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        SvgPicture.asset(
+                          AppIcons.ic_logo,
+                          height: 120,
+                          fit: BoxFit.fitWidth,
+                        ),
+                        InputTextField(
+                          labelText: 'Ingresa tu personal access token',
+                          onChange: cubit.onChangeToken,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                          child: WidgetButton.primary(
+                            enable: !state.isLaoding,
+                            text: 'Ingresar',
+                            onPressed: () => cubit.doLogin(),
+                          ),
+                        ),
+                        RichText(
+                            text: TextSpan(children: <TextSpan>[
+                          TextSpan(
+                            text: 'No tienes token? obtenlo',
+                            style: TextStyles.smallGray,
+                          ),
+                          TextSpan(
+                            text: ' Aqui!',
+                            style: TextStyles.smallLink,
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () => openWebView(),
+                          )
+                        ])),
+                      ],
+                    ));
+              }),
         ),
       ),
     );

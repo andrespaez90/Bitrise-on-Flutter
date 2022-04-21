@@ -7,9 +7,11 @@ class InputTextField extends TextFormField {
   InputTextField({
     Key? key,
     String? labelText,
+    String? initialValue,
     ValueChanged<String>? onChange,
   }) : super(
           key: key,
+          initialValue: initialValue,
           decoration: InputDecoration(
             labelStyle: TextStyles.bodyPurple,
             border: const UnderlineInputBorder(),
