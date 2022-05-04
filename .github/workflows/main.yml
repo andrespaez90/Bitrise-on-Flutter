@@ -16,7 +16,7 @@ on:
 jobs:
   title_comment:
     runs-on: ubuntu-latest
-    if: "!startsWith(github.event.pull_request.title, '[TASKs]')"
+    if: "!startsWith(github.event.pull_request.title, 'TASK |') || !startsWith(github.event.pull_request.title, 'HOTFIX |')"
     steps: 
       - uses: actions/github-script@v5
         with:
